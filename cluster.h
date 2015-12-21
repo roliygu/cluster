@@ -1,11 +1,17 @@
 #ifndef CLUSTER_ANALYSIS_CLUSTER_H
 #define CLUSTER_ANALYSIS_CLUSTER_H
 
-#include "Matrix.h"
 #include <map>
+#include <stdexcept>
+#include <cstring>
+#include <math.h>
+#include "utils/utils.h"
+#include "Matrix.h"
+
 
 using std::vector;
 using std::map;
+using std::invalid_argument;
 
 namespace Cluster{
 

@@ -12,8 +12,7 @@ namespace Random{
 
     int randint(int a, int b, bool newSeed){
         if(a>b || a==b){
-            cout<<"Invalid argument(a, b)"<<endl;
-            return 0;
+            throw invalid_argument("Invalid argument(a, b)");
         }
         if(newSeed){
             setNewSeed();
@@ -23,8 +22,7 @@ namespace Random{
 
     size_t* randIndex(size_t size, bool newSeed){
         if(size==0){
-            cout<<"Invalid argument(size)"<<endl;
-            return NULL;
+            throw invalid_argument("Invalid argument(size)");
         }
         if(newSeed){
             setNewSeed();

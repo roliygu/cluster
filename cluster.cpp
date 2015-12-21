@@ -1,9 +1,4 @@
-#include <cstring>
 #include "cluster.h"
-#include "utils/utils.h"
-#include <math.h>
-
-using std::invalid_argument;
 
 namespace Cluster{
 

@@ -5,6 +5,7 @@
 #include <random>
 #include <iostream>
 #include <time.h>
+#include <stdexcept>
 
 using std::cout;
 using std::endl;
