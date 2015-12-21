@@ -1,0 +1,9 @@
+
+    map<int, vector<double*>> res = Cluster::selectKPoints(data, 3, Cluster::selectKPointsByRandom);
+    for(auto& i : res){
+        for(int j=0;j!=10;j++){
+            cout<<i.second[0][j]<<" ";
+        }
+        cout<<endl;
+    }
+
