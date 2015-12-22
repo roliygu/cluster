@@ -35,10 +35,14 @@ namespace Cluster{
      */
     double getDistance(double* a, double* b);
 
-    // 计算欧式距离
+    /**
+     * 计算欧式距离
+     */
     double calED(double* a, double* b);
 
-    // 判断point离k个点中哪个点最近,并将该点分配到map中
+    /**
+     * 判断point离k个点中哪个点最近,并将该点分配到map中
+     */
     int markPoint(double* point, map<int, vector<double*> > &kPoints);
 
     /**
@@ -46,26 +50,42 @@ namespace Cluster{
      */
     void markAllPoints(Matrix &m, map<int, vector<double*> > &kPoints);
 
-    // 计算这堆点的质心
+    /**
+     * 计算这堆点的质心
+     */
     double* calBarycenter(vector<double*> &points);
 
-    // 更新map中所有组的重心,并返回所有重心更新前后距离之和
+    /**
+     * 更新map中所有组的重心,并返回所有重心更新前后距离之和
+     */
     double updateKPoints(map<int, vector<double*> > &kPoints);
 
+    /**
+     * 计算误差和
+     */
     double errFunc(map<int, vector<double*>> &kPoints);
 
+    /**
+     * 聚类算法的配置
+     */
     class Option{
     public:
         int D;
         double (*disF)(double* a, double* b);
         vector<double*> (*selF)(Matrix &m, int t);
         double* (*barF)(vector<double*> &points);
+
         Option(int d){
             this->D = d;
             this->disF = calED;
             this->selF = selectKPointsByRandom;
             this->barF = calBarycenter;
         }
+        void setDisF(double (*p)(double* a, double* b));
+
+        void setSelF(vector<double*> (*p)(Matrix &m, int t));
+
+        void setBarF(double* (*p)(vector<double*> &points));
     };
 
     void setOption(Option *op);

@@ -8,6 +8,18 @@ namespace Cluster{
         op = opt;
     }
 
+    void Option::setDisF(double (*p)(double* a, double* b)){
+        this->disF = p;
+    }
+
+    void Option::setSelF(vector<double*> (*p)(Matrix &m, int t)){
+        this->selF = p;
+    }
+
+    void Option::setBarF(double* (*p)(vector<double*> &points)){
+        this->barF = p;
+    }
+
     map<int, vector<double*>> kMeans(Matrix &m, int k){
         if(op==NULL){
             throw invalid_argument("Option is missing.");
