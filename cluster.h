@@ -30,7 +30,7 @@ namespace Cluster{
     /**
      * 选择SSE最大的一个簇,拆分成两个
      */
-    void splitKPoints(map<int, vector<double*>> &kPoints);
+    void splitKPoints(map<int, vector<double*>> &kPoints, int currentK);
 
     /**
      * 将一个簇分裂成两个簇:根据标准差最大的一维均分成两堆

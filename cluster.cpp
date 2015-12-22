@@ -35,24 +35,34 @@ namespace Cluster{
     };
 
     map<int, vector<double*>> binaryKMeans(Matrix &m, int k){
-
-
-
+        vector<double*> allPoints;
+        allPoints.push_back(nullptr);
+        for(auto i : m.m){
+            allPoints.push_back(i);
+        }
+        map<int, vector<double*>> res;
+        res[0] = allPoints;
+        int currK = 1;
+        while(currK!=k){
+            splitKPoints(res, currK);
+            currK++;
+        }
+        return res;
     };
 
     vector<double*>* split(vector<double*> &points){
         vector<double*>* res = new vector<double*>[2];
         vector<double*> tmp;
-        for(auto i=begin(*res)+1;i!=end(*res);i++) {
+        for(auto i=begin(points)+1;i!=end(points);i++) {
             tmp.push_back(*i);
         }
 
-        size_t max_c = Statistics::getMaxSDCol(points, op->D);
+        size_t max_c = Statistics::getMaxSDCol(tmp, op->D);
 
         res[0].push_back(nullptr);
         res[1].push_back(nullptr);
         double avg = Statistics::avgCol(tmp, max_c);
-        for(size_t i=1;i!=tmp.size();i++){
+        for(size_t i=0;i!=tmp.size();i++){
             if(tmp[i][max_c]<avg){
                 res[0].push_back(tmp[i]);
             }else{
@@ -66,7 +76,12 @@ namespace Cluster{
 
     void splitKPoints(map<int, vector<double*>> &kPoints, int currentK){
 
-        int label = getMaxSSECluster(kPoints);
+        int label;
+        if(currentK==1){
+            label = 0;
+        } else{
+            label = getMaxSSECluster(kPoints);
+        }
 
         vector<double*>* two = split(kPoints[label]);
 
@@ -212,7 +227,7 @@ namespace Cluster{
         for(auto& i : kPoints){
             double *tmp = op->barF(i.second);
             sum += op->disF(i.second[0], tmp);
-            if(i.second[0]!=NULL){
+            if(i.second[0]!=nullptr){
                 delete[] i.second[0];
             }
             i.second[0] = tmp;
