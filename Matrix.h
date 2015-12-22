@@ -5,11 +5,13 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <map>
 
 using std::vector;
 using std::string;
 using std::cout;
 using std::endl;
+using std::map;
 
 class HeaderItem{
 public:
@@ -35,10 +37,12 @@ public:
 
     void setD(int d){this->D = d;}
     int getD(){return this->D;}
+    map<uint64_t, long>add2id();
+    void updateGroup(map<int, vector<double*>> kPoints);
 
 private:
     int D;
-
+    map<uint64_t, long> idMap = nullptr;
 };
 
 

@@ -32,3 +32,27 @@ void Matrix::print(){
     }
     cout<<"}"<<endl;
 }
+
+map<uint64_t, long> Matrix::add2id(){
+
+    map<uint64_t, long> res;
+    for(size_t i=0;i!=this->m.size();i++){
+        res[(uint64_t)(this->m[i])] = this->y[i]._id;
+    }
+    return res;
+};
+
+void Matrix::updateGroup(map<int, vector<double*>> kPoints){
+
+    if(this->idMap == nullptr){
+        this->idMap = add2id();
+    }
+    for(auto i : kPoints){
+        for(size_t j=1;j!=i.second.size();j++){
+            long tid = this->idMap[(uint64_t)i.second[j]];
+            this->y[tid]._group = i.first;
+        }
+        cout<<endl;
+    }
+
+}

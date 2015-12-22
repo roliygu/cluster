@@ -14,9 +14,9 @@ Matrix getData1(){
     vector<HeaderItem> xHeader, yHeader;
     for(int i=0;i!=size;i++){
         HeaderItem t;
-        t.setData(i, "1", -1);
+        t.setData(-i, "1", -1);
         xHeader.insert(xHeader.end(), t);
-        t.setData(-i, "2", -1);
+        t.setData(i, "2", -1);
         yHeader.insert(yHeader.end(), t);
     }
 
