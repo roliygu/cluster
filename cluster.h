@@ -7,18 +7,35 @@
 #include <math.h>
 #include "utils/utils.h"
 #include "Matrix.h"
+#include <algorithm>
 
 
 using std::vector;
 using std::map;
 using std::invalid_argument;
+using std::sort;
 
 namespace Cluster{
 
     /**
-     * k均值分类
+     * k均值聚类
      */
     map<int, vector<double*>> kMeans(Matrix &m, int k);
+
+    /**
+     * 二分k均值聚类
+     */
+    map<int, vector<double*>> binaryKMeans(Matrix &m, int k);
+
+    /**
+     * 选择SSE最大的一个簇,拆分成两个
+     */
+    void splitKPoints(map<int, vector<double*>> &kPoints);
+
+    /**
+     * 将一个簇分裂成两个簇:根据标准差最大的一维均分成两堆
+     */
+    vector<double*>* split(vector<double*> &points);
 
     /**
      * 选出K个点作为代表点,决定的方法由参数f决定
@@ -61,9 +78,20 @@ namespace Cluster{
     double updateKPoints(map<int, vector<double*> > &kPoints);
 
     /**
-     * 计算误差和
+     * 计算一个簇的SEE
      */
-    double errFunc(map<int, vector<double*>> &kPoints);
+    double errFunc(vector<double*> &points);
+
+    /**
+     * 计算所有簇的SEE
+     */
+    double totalErrFunc(map<int, vector<double*>> &kPoints);
+
+    /**
+     * 获取最大SSE的簇标号
+     */
+    int getMaxSSECluster(map<int, vector<double*>> &kPoints);
+
 
     /**
      * 聚类算法的配置

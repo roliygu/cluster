@@ -4,10 +4,11 @@
 #include "data.h"
 
 using std::vector;
+using std::bad_alloc;
 
 Matrix getData1(){
 
-    int size = 10000;
+    int size = 1000;
     
     Matrix data1;
     vector<HeaderItem> xHeader, yHeader;
@@ -23,7 +24,13 @@ Matrix getData1(){
     data1.y = yHeader;
 
     for(int i=0;i!=size;i++){
-        double *tmp = new double[size];
+        double *tmp;
+        try{
+            tmp = new double[size];
+        }catch(const bad_alloc&e){
+            cout<<"内存不足"<<endl;
+            return data1;
+        }
         for(int j=0;j!=size;j++){
             tmp[j] = rand()%100;
         }

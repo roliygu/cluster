@@ -10,6 +10,7 @@
 using std::cout;
 using std::endl;
 using std::invalid_argument;
+using std::vector;
 
 namespace Random{
 
@@ -97,6 +98,53 @@ namespace Memory{
         return (T*) memcpy(res, source, sizeof(T)*size);
     }
 
+}
+
+namespace Statistics{
+
+    /**
+     * 计算某列的平均数
+     */
+    template<class T>
+    double avgCol(vector<T*> &data, size_t col){
+        double res = 0.0;
+        for(auto i : data){
+            res += i[col];
+        }
+        return res/data.size();
+    }
+
+    /**
+     * 计算某列的标准差
+     */
+    template<class T>
+    double sdCol(vector<T*> &data, size_t col){
+        double avg = avgCol(data, col);
+        double res = 0.0;
+        for(auto i : data){
+            res += (i[col]-avg)*(i[col]-avg);
+        }
+        return sqrt(res/data.size());
+    }
+
+    template<class T>
+    size_t getMaxSDCol(vector<T*> &data, int d){
+        size_t max_c;
+        double sd;
+        for(size_t i=0;i!=d;i++){
+            if(i==0){
+                max_c = 0;
+                sd = Statistics::sdCol(data, 0);
+            }else{
+                double t_sd = Statistics::sdCol(data, i);
+                if(t_sd>sd){
+                    max_c = i;
+                    sd = max_c;
+                }
+            }
+        }
+        return max_c;
+    }
 }
 
 namespace Time{

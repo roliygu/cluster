@@ -43,7 +43,9 @@ namespace Random{
 
 namespace Memory{
 
+}
 
+namespace Statistics{
 
 }
 

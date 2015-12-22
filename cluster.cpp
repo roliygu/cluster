@@ -34,6 +34,65 @@ namespace Cluster{
         return kPoints;
     };
 
+    map<int, vector<double*>> binaryKMeans(Matrix &m, int k){
+
+
+
+    };
+
+    vector<double*>* split(vector<double*> &points){
+        vector<double*>* res = new vector<double*>[2];
+        vector<double*> tmp;
+        for(auto i=begin(*res)+1;i!=end(*res);i++) {
+            tmp.push_back(*i);
+        }
+
+        size_t max_c = Statistics::getMaxSDCol(points, op->D);
+
+        res[0].push_back(nullptr);
+        res[1].push_back(nullptr);
+        double avg = Statistics::avgCol(tmp, max_c);
+        for(size_t i=1;i!=tmp.size();i++){
+            if(tmp[i][max_c]<avg){
+                res[0].push_back(tmp[i]);
+            }else{
+                res[1].push_back(tmp[i]);
+            }
+        }
+        res[0][0] = calBarycenter(res[0]);
+        res[1][0] = calBarycenter(res[1]);
+        return res;
+    }
+
+    void splitKPoints(map<int, vector<double*>> &kPoints, int currentK){
+
+        int label = getMaxSSECluster(kPoints);
+
+        vector<double*>* two = split(kPoints[label]);
+
+        //回收被拆分的簇
+        delete[] kPoints[label][0];
+        kPoints.erase(label);
+
+        kPoints[label] = two[0];
+        kPoints[currentK] = two[1];
+
+        delete[] two;
+    }
+
+    int getMaxSSECluster(map<int, vector<double*>> &kPoints){
+        double max_sse = -1;
+        int label;
+        for(auto i : kPoints){
+            double t_sse = errFunc(i.second);
+            if(t_sse>max_sse){
+                label = i.first;
+                max_sse = t_sse;
+            }
+        }
+        return label;
+    }
+
     map<int, vector<double*>> selectKPoints(Matrix &m, int k){
         if(op==NULL){
             throw invalid_argument("Option is missing.");
@@ -108,7 +167,9 @@ namespace Cluster{
         for(auto& i : kPoints){
             vector<double*>* tmp = &(i.second);
             if(tmp->size()>1){
-                tmp->erase(tmp->begin()+1,tmp->end());
+                double* first = tmp->at(0);
+                tmp->clear();
+                tmp->push_back(first);
             }
         }
 
@@ -151,23 +212,32 @@ namespace Cluster{
         for(auto& i : kPoints){
             double *tmp = op->barF(i.second);
             sum += op->disF(i.second[0], tmp);
-            delete[] i.second[0];
+            if(i.second[0]!=NULL){
+                delete[] i.second[0];
+            }
             i.second[0] = tmp;
         }
         return sum;
     }
 
-    double errFunc(map<int, vector<double*>> &kPoints){
+    double errFunc(vector<double*> &points){
+        double res = 0;
+        if(points.size()>1){
+            for(size_t j=1;j!=points.size();j++){
+                res += op->disF(points[0], points[j]);
+            }
+        }
+        return res;
+    }
+
+    double totalErrFunc(map<int, vector<double*>> &kPoints){
         double sum = 0;
         for(auto& i : kPoints){
-            vector<double*> *tmp = &i.second;
-            if(tmp->size()>1){
-                for(size_t j=1;j!=tmp->size();j++){
-                    sum += op->disF(tmp->at(0), tmp->at(j));
-                }
-            }
+            sum += errFunc(i.second);
         }
         return sqrt(sum);
     }
+
+
 }
 
