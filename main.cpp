@@ -9,9 +9,10 @@ int main() {
 
     Time::passed();
     Matrix data = getData1();
-    Cluster::setD(1000);
+    Cluster::Option *op = new Cluster::Option(1000);
+    Cluster::setOption(op);
     map<int, vector<double*>> res = Cluster::kMeans(data, 2);
-    cout<<Cluster::errFunc(res, Cluster::calED)<<endl;
+    cout<<Cluster::errFunc(res)<<endl;
     cout<<Time::passed()<<endl;
     return 0;
 }

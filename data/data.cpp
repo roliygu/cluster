@@ -7,7 +7,7 @@ using std::vector;
 
 Matrix getData1(){
 
-    int size = 1000;
+    int size = 10000;
     
     Matrix data1;
     vector<HeaderItem> xHeader, yHeader;
