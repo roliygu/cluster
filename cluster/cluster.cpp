@@ -20,11 +20,11 @@ namespace Cluster{
         this->barF = p;
     }
 
-    map<int, vector<double*>> kMeans(Matrix &m, int k){
+    map<size_t, vector<double*>> kMeans(Matrix &m, int k){
         if(op==NULL){
             throw invalid_argument("Option is missing.");
         }
-        map<int, vector<double*>> kPoints = selectKPoints(m, k);
+        map<size_t, vector<double*>> kPoints = selectKPoints(m, k);
         double diff;
         do{
             markAllPoints(m, kPoints);
@@ -34,13 +34,13 @@ namespace Cluster{
         return kPoints;
     };
 
-    map<int, vector<double*>> binaryKMeans(Matrix &m, int k){
+    map<size_t, vector<double*>> binaryKMeans(Matrix &m, int k){
         vector<double*> allPoints;
         allPoints.push_back(nullptr);
         for(auto i : m.m){
             allPoints.push_back(i);
         }
-        map<int, vector<double*>> res;
+        map<size_t, vector<double*>> res;
         res[0] = allPoints;
         int currK = 1;
         while(currK!=k){
@@ -74,7 +74,7 @@ namespace Cluster{
         return res;
     }
 
-    void splitKPoints(map<int, vector<double*>> &kPoints, int currentK){
+    void splitKPoints(map<size_t, vector<double*>> &kPoints, int currentK){
 
         int label;
         if(currentK==1){
@@ -95,7 +95,7 @@ namespace Cluster{
         delete[] two;
     }
 
-    int getMaxSSECluster(map<int, vector<double*>> &kPoints){
+    int getMaxSSECluster(map<size_t, vector<double*>> &kPoints){
         double max_sse = -1;
         int label;
         for(auto i : kPoints){
@@ -108,13 +108,13 @@ namespace Cluster{
         return label;
     }
 
-    map<int, vector<double*>> selectKPoints(Matrix &m, int k){
+    map<size_t, vector<double*>> selectKPoints(Matrix &m, int k){
         if(op==NULL){
             throw invalid_argument("Option is missing.");
         }
         vector<double*> kPoints = op->selF(m, k);
 
-        map<int, vector<double*>> res;
+        map<size_t, vector<double*>> res;
 
         for(int i=0;i!=k;i++){
             res[i].push_back(kPoints[i]);
@@ -155,7 +155,7 @@ namespace Cluster{
         return sqrt(sum);
     }
 
-    int markPoint(double* point, map<int, vector<double*> > &kPoints){
+    int markPoint(double* point, map<size_t, vector<double*>> &kPoints){
         if(op==NULL){
             throw invalid_argument("Option is missing.");
         }
@@ -177,7 +177,7 @@ namespace Cluster{
         return label;
     }
 
-    void markAllPoints(Matrix &m, map<int, vector<double*> > &kPoints){
+    void markAllPoints(Matrix &m, map<size_t, vector<double*>> &kPoints){
         // 重新分配点之前,将kPoints中非质心点去掉
         for(auto& i : kPoints){
             vector<double*>* tmp = &(i.second);
@@ -219,7 +219,7 @@ namespace Cluster{
         return res;
     }
 
-    double updateKPoints(map<int, vector<double*> > &kPoints){
+    double updateKPoints(map<size_t, vector<double*>> &kPoints){
         if(op==NULL){
             throw invalid_argument("Option is missing.");
         }
@@ -245,7 +245,7 @@ namespace Cluster{
         return res;
     }
 
-    double totalErrFunc(map<int, vector<double*>> &kPoints){
+    double totalErrFunc(map<size_t, vector<double*>> &kPoints){
         double sum = 0;
         for(auto& i : kPoints){
             sum += errFunc(i.second);

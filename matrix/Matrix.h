@@ -15,34 +15,48 @@ using std::map;
 
 class HeaderItem{
 public:
-    long _id;
-    int _group;
+    size_t _id;
+
+    size_t _group;
+
     string _value;
-    HeaderItem(long id, string value){
-        this->_id = id;
-        this->_value = value;
-        this->_group = -1;
-    };
+
+
+    /********function********/
+
     HeaderItem(){};
-    void setData(long id, string value, int group);
+
+    HeaderItem(size_t id, string value);
+
+    void setData(size_t id, string value, size_t group);
+
     void print();
 };
 
 class Matrix{
 public:
-    vector<HeaderItem> x;
+
     vector<HeaderItem> y;
+
     vector<double*> m;
+
+
+    /********function********/
+
     void print();
 
-    void setD(int d){this->D = d;}
-    int getD(){return this->D;}
-    map<uint64_t, long>add2id();
-//    void updateGroup(map<int, vector<double*>> kPoints);
+    void setD(int d){D = d;}
+
+    int getD(){return D;}
+
+    void updateGroup(map<size_t, vector<double*>> kPoints);
 
 private:
     int D;
-//    map<uint64_t, long> idMap;
+
+    map<intptr_t, size_t> idMap;
+
+    void setIdMap();
 };
 
 

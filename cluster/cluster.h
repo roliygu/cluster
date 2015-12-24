@@ -5,8 +5,8 @@
 #include <stdexcept>
 #include <cstring>
 #include <math.h>
-#include "utils/utils.h"
-#include "Matrix.h"
+#include "../utils/utils.h"
+#include "../matrix/Matrix.h"
 #include <algorithm>
 
 
@@ -20,17 +20,17 @@ namespace Cluster{
     /**
      * k均值聚类
      */
-    map<int, vector<double*>> kMeans(Matrix &m, int k);
+    map<size_t, vector<double*>> kMeans(Matrix &m, int k);
 
     /**
      * 二分k均值聚类
      */
-    map<int, vector<double*>> binaryKMeans(Matrix &m, int k);
+    map<size_t, vector<double*>> binaryKMeans(Matrix &m, int k);
 
     /**
      * 选择SSE最大的一个簇,拆分成两个
      */
-    void splitKPoints(map<int, vector<double*>> &kPoints, int currentK);
+    void splitKPoints(map<size_t, vector<double*>> &kPoints, int currentK);
 
     /**
      * 将一个簇分裂成两个簇:根据标准差最大的一维均分成两堆
@@ -40,7 +40,7 @@ namespace Cluster{
     /**
      * 选出K个点作为代表点,决定的方法由参数f决定
      */
-    map<int, vector<double*> > selectKPoints(Matrix &m, int k);
+    map<size_t, vector<double*>> selectKPoints(Matrix &m, int k);
 
     /**
      * 挑选k个点得一种实现方式,随机挑选k个点
@@ -60,12 +60,12 @@ namespace Cluster{
     /**
      * 判断point离k个点中哪个点最近,并将该点分配到map中
      */
-    int markPoint(double* point, map<int, vector<double*> > &kPoints);
+    int markPoint(double* point, map<size_t, vector<double*>> &kPoints);
 
     /**
      * 将matrix中所有点重新分配一遍
      */
-    void markAllPoints(Matrix &m, map<int, vector<double*> > &kPoints);
+    void markAllPoints(Matrix &m, map<size_t, vector<double*>> &kPoints);
 
     /**
      * 计算这堆点的质心
@@ -75,7 +75,7 @@ namespace Cluster{
     /**
      * 更新map中所有组的重心,并返回所有重心更新前后距离之和
      */
-    double updateKPoints(map<int, vector<double*> > &kPoints);
+    double updateKPoints(map<size_t, vector<double*>> &kPoints);
 
     /**
      * 计算一个簇的SEE
@@ -85,12 +85,12 @@ namespace Cluster{
     /**
      * 计算所有簇的SEE
      */
-    double totalErrFunc(map<int, vector<double*>> &kPoints);
+    double totalErrFunc(map<size_t, vector<double*>> &kPoints);
 
     /**
      * 获取最大SSE的簇标号
      */
-    int getMaxSSECluster(map<int, vector<double*>> &kPoints);
+    int getMaxSSECluster(map<size_t, vector<double*>> &kPoints);
 
 
     /**

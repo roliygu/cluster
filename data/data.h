@@ -6,7 +6,7 @@
 #define CLUSTER_ANALYSIS_DATA_H
 
 #include "data.h"
-#include "../Matrix.h"
+#include "../matrix/Matrix.h"
 #include <string>
 #include <random>
 

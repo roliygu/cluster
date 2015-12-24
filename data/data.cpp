@@ -8,20 +8,18 @@ using std::bad_alloc;
 
 Matrix getData1(){
 
-    int size = 1000;
+    int size = 100;
     
     Matrix data1;
-    vector<HeaderItem> xHeader, yHeader;
+    vector<HeaderItem> yHeader;
     for(int i=0;i!=size;i++){
         HeaderItem t;
-        t.setData(-i, "1", -1);
-        xHeader.insert(xHeader.end(), t);
         t.setData(i, "2", -1);
         yHeader.insert(yHeader.end(), t);
     }
 
-    data1.x = xHeader;
     data1.y = yHeader;
+    data1.setD(size);
 
     for(int i=0;i!=size;i++){
         double *tmp;
