@@ -12,7 +12,7 @@ int main() {
     map<uint64_t, long> m = data.add2id();
 
     map<int, vector<double*>> res,res2;
-    Cluster::Option *op = new Cluster::Option(100);
+    Cluster::Option *op = new Cluster::Option(1000);
     Cluster::setOption(op);
 
 //    Matrix data = getData1();
@@ -23,18 +23,19 @@ int main() {
 //    cout<<Cluster::totalErrFunc(res)<<endl;
 //    cout<<Time::passed()<<endl;
 
+//    data.print();
     Time::passed();
-    res = Cluster::binaryKMeans(data, 99);
+    res = Cluster::binaryKMeans(data, 100);
     cout<<Cluster::totalErrFunc(res)<<endl;
     cout<<Time::passed()<<endl;
 
-    for(auto i : res){
-        cout<<"label: "<<i.first<<" ";
-        for(size_t j=1;j!=i.second.size();j++){
-            cout<<m[(uint64_t)i.second[j]]<<", ";
-        }
-        cout<<endl;
-    }
+//    for(auto i : res){
+//        cout<<"label: "<<i.first<<" ";
+//        for(size_t j=1;j!=i.second.size();j++){
+//            cout<<m[(uint64_t)i.second[j]]<<", ";
+//        }
+//        cout<<endl;
+//    }
 
     return 0;
 }

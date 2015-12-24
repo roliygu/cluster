@@ -38,11 +38,11 @@ public:
     void setD(int d){this->D = d;}
     int getD(){return this->D;}
     map<uint64_t, long>add2id();
-    void updateGroup(map<int, vector<double*>> kPoints);
+//    void updateGroup(map<int, vector<double*>> kPoints);
 
 private:
     int D;
-    map<uint64_t, long> idMap = nullptr;
+//    map<uint64_t, long> idMap;
 };
 
 
