@@ -5,8 +5,8 @@
 #include <stdexcept>
 #include <cstring>
 #include <math.h>
-#include "../utils/utils.h"
-#include "../matrix/Matrix.h"
+#include "utils/utils.h"
+#include "matrix/Matrix.h"
 #include <algorithm>
 
 

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "utils/utils.h"
-#include "cluster/cluster.h"
+#include "cluster.h"
 #include "data/data.h"
 
 int main() {
