@@ -21,8 +21,7 @@ public:
 
     string _value;
 
-
-    /********function********/
+    /********Function member********/
 
     HeaderItem(){};
 
@@ -40,8 +39,7 @@ public:
 
     vector<double*> m;
 
-
-    /********function********/
+    /********Function member********/
 
     void print();
 
@@ -51,7 +49,10 @@ public:
 
     void updateGroup(map<size_t, vector<double*>> kPoints);
 
+    map<intptr_t, size_t>* getIdMap();
+
 private:
+
     int D;
 
     map<intptr_t, size_t> idMap;

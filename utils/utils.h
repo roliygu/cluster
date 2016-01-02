@@ -89,13 +89,15 @@ namespace Random{
 
 namespace Memory{
 
+    /**
+     * 拷贝一个数组,如果数组的元素是指针的话,并不复制指针指向的内容
+     */
     template<class T>
-    T* copyArray(T* source, size_t size){
+    T* copyArray(T* source, T* target, size_t size){
         if(source == NULL){
             throw invalid_argument("Invalid argument(source)");
         }
-        T* res = new T[size];
-        return (T*) memcpy(res, source, sizeof(T)*size);
+        return (T*) memcpy(target, source, sizeof(T)*size);
     }
 
 }
@@ -127,6 +129,9 @@ namespace Statistics{
         return sqrt(res/data.size());
     }
 
+    /**
+     * 得到标准差最大的列index
+     */
     template<class T>
     size_t getMaxSDCol(vector<T*> &data, int d){
         size_t max_c;
