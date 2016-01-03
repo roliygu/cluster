@@ -62,15 +62,21 @@ double KMeans::updateKPoints(){
 
     double sum = 0;
 
-    for(auto &i : kPoints){
-        double* target = barycenter[i.first];
+    for(auto i : kPoints){
+
+        double* source = barycenter[i.first];
+        double* target = new double[dimension];
+        Memory::copyArray(source, target, dimension);
+
         if(i.second.empty()){
             // 出现空簇
             kPoints.erase(i.first);
             continue;
         }
-        barF(i.second, target, dimension);
-        sum += disF(i.second[0], target, dimension);
+        barF(i.second, source, dimension);
+        sum += disF(source, target, dimension);
+
+        delete[] target;
     }
     return sum;
 }

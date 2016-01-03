@@ -21,12 +21,14 @@ int main() {
     cout<<Time::passed()<<endl;
 
     cout<<p->getInertia()<<endl;
-//
-//    vector<size_t> label = p->getLabels(data);
-//
-//    for(auto i: label){
-//        cout<<i<<", ";
-//    }
+
+    Cluster* q = new KMeans(10000, 100);
+
+    q->fit(data);
+
+    cout<<Time::passed()<<endl;
+
+    cout<<q->getInertia()<<endl;
 
     return 0;
 }

@@ -1,6 +1,3 @@
-//
-// Created by Roliy on 15/12/17.
-//
 #include "data.h"
 
 using std::vector;

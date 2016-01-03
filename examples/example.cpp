@@ -1,7 +1,8 @@
 #include <iostream>
 #include <vector>
 #include "../utils/utils.h"
-#include "cluster.h"
+#include "../cluster/kmeans.h"
+#include "../cluster/binaryKMeans.h"
 #include "../data/data.h"
 
 int main() {
@@ -9,18 +10,29 @@ int main() {
     //1. 获取测试数据
     Matrix data = getData1();
 
-    //2. 设置聚类算法的相关参数,这里的100是指data中每条数据的维度数
-    Cluster::Option *op = new Cluster::Option(100);
-    Cluster::setOption(op);
+    //2. 设置聚类参数,比如维度和K
+    Cluster *kmeans = new KMeans(100, 10);
 
-    //3. 使用基本kMeans将data分成4类,res的key是类标签,value是被分配的点的指针
-    map<size_t, vector<double*>> res = Cluster::kMeans(data, 4);
+    //3. 运行
+    kmeans->fit(data);
 
-    //4. (可选)data.y._group用来存储类标签,调用updateGroup更新_group字段
-    data.updateGroup(res);
+    //4. 查看结果
+    cout<<kmeans->getInertia()<<endl;
+    vector<size_t> res = kmeans->getLabels(data);
+    for(auto i : res){
+        cout<<i<<" ";
+    }
 
-    //5. (可选)
-    data.print();
+    // 或者使用二分K均值聚类
+    Cluster *bKmeans = new BinaryKMeans(100, 10);
+
+    bKmeans->fit(data);
+
+    cout<<kmeans->getInertia()<<endl;
+    res = kmeans->getLabels(data);
+    for(auto i : res){
+        cout<<i<<" ";
+    }
 
     return 0;
 }
