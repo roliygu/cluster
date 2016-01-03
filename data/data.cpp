@@ -8,7 +8,7 @@ using std::bad_alloc;
 
 Matrix getData1(){
 
-    int size = 10;
+    int size = 10000;
     
     Matrix data1;
     vector<HeaderItem> yHeader;

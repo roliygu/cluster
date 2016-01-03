@@ -51,12 +51,17 @@ protected:
     /**
     * 计算一个簇的SEE
     */
-    double errFunc(vector<double*> &points);
+    double errFunc(vector<double*> &points, double *center);
 
     /**
      * 计算所有簇的SEE
      */
-    double totalErrFunc(map<size_t, vector<double*>> &kPoints);
+    double totalErrFunc();
+
+    /**
+     * 获取最大SSE的簇标号
+     */
+    size_t getMaxSSECluster();
 };
 
 

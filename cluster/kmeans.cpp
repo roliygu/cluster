@@ -110,7 +110,7 @@ vector<size_t> KMeans::getLabels(Matrix &matrix){
 
 double KMeans::getInertia(){
     if(inertia<0){
-        inertia = totalErrFunc(kPoints);
+        inertia = totalErrFunc();
     }
     return inertia;
 }
