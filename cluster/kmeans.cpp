@@ -61,11 +61,12 @@ void KMeans::markAllPoints(Matrix &m){
 double KMeans::updateKPoints(){
 
     double sum = 0;
+    double* target = new double[dimension];
 
     for(auto i : kPoints){
 
         double* source = barycenter[i.first];
-        double* target = new double[dimension];
+
         Memory::copyArray(source, target, dimension);
 
         if(i.second.empty()){
@@ -75,9 +76,8 @@ double KMeans::updateKPoints(){
         }
         barF(i.second, source, dimension);
         sum += disF(source, target, dimension);
-
-        delete[] target;
     }
+    delete[] target;
     return sum;
 }
 

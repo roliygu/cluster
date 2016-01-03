@@ -14,13 +14,13 @@ int main() {
 
     Time::passed();
 
-    Cluster* p = new BinaryKMeans(10000, 100);
-
-    p->fit(data);
-
-    cout<<Time::passed()<<endl;
-
-    cout<<p->getInertia()<<endl;
+//    Cluster* p = new BinaryKMeans(10000, 100);
+//
+//    p->fit(data);
+//
+//    cout<<Time::passed()<<endl;
+//
+//    cout<<p->getInertia()<<endl;
 
     Cluster* q = new KMeans(10000, 100);
 
