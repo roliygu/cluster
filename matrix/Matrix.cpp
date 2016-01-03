@@ -42,12 +42,12 @@ void Matrix::print(){
     cout<<"}"<<endl;
 }
 
-map<intptr_t, size_t>* Matrix::getIdMap(){
+map<intptr_t, size_t> & Matrix::getIdMap(){
 
-    if(this->idMap.empty()){
-        this->setIdMap();
+    if(idMap.empty()){
+        setIdMap();
     }
-    return &(this->idMap);
+    return idMap;
 };
 
 void Matrix::setIdMap(){

@@ -4,7 +4,6 @@
 #include <stdexcept>
 #include <map>
 #include "Math.h"
-#include "cluster_utils.hpp"
 #include "../matrix/Matrix.h"
 #include "../utils/utils.h"
 
@@ -15,10 +14,7 @@ using std::map;
 class Cluster {
 public:
 
-    Cluster(size_t dim):dimension(dim),disF(calED),barF(calBarycenter),inertia(-1){}
-
-    Cluster(size_t dim, double (*a)(double* x, double* y, size_t dim),
-            void (*c)(vector<double*> &points, double* res, size_t dim)):dimension(dim),disF(a),barF(c),inertia(-1){}
+    Cluster(size_t dim):dimension(dim),inertia(-1),disF(DataMining::calED),barF(DataMining::calBarycenter){}
 
     virtual void fit(Matrix &matrix);
 

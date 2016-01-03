@@ -49,7 +49,7 @@ public:
 
     void updateGroup(map<size_t, vector<double*>> kPoints);
 
-    map<intptr_t, size_t>* getIdMap();
+    map<intptr_t, size_t>& getIdMap();
 
 private:
 

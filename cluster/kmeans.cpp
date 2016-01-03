@@ -1,7 +1,7 @@
 #include "kmeans.h"
 
 void KMeans::selectKPointsByRandom(Matrix &m, int k){
-    size_t dim = this->dimension;
+    size_t dim = dimension;
 
     size_t* index = Random::randIndex(m.m.size(), false);
 
@@ -16,7 +16,7 @@ void KMeans::selectKPointsByRandom(Matrix &m, int k){
         }
 
         tmp = Memory::copyArray(m.m[index[i]], tmp, dim);
-        this->barycenter.push_back(tmp);
+        barycenter.push_back(tmp);
     }
 
     delete[] index;
@@ -29,12 +29,12 @@ int KMeans::markPoint(double* point){
     double min;
     size_t label;
 
-    for(size_t i=0;i!=this->barycenter.size();i++){
+    for(size_t i=0;i!=barycenter.size();i++){
         if(i == 0){
-            min = this->disF(point, this->barycenter[0], this->dimension);
+            min = disF(point, barycenter[0], dimension);
             label = 0;
         }else{
-            double d = this->disF(point, this->barycenter[i], this->dimension);
+            double d = disF(point, barycenter[i], dimension);
             if(d < min){
                 min = d;
                 label = i;
@@ -49,7 +49,7 @@ int KMeans::markPoint(double* point){
 void KMeans::markAllPoints(Matrix &m){
 
     // 重新分配点之前,将kPoints中所有点清空
-    for(auto& i : this->kPoints){
+    for(auto &i : kPoints){
         i.second.clear();
     }
 
@@ -62,17 +62,22 @@ double KMeans::updateKPoints(){
 
     double sum = 0;
 
-    for(auto& i : this->kPoints){
-        double* target = this->barycenter[i.first];
-        this->barF(i.second, target, this->dimension);
-        sum += this->disF(i.second[0], target, this->dimension);
+    for(auto &i : kPoints){
+        double* target = barycenter[i.first];
+        if(i.second.empty()){
+            // 出现空簇
+            kPoints.erase(i.first);
+            continue;
+        }
+        barF(i.second, target, dimension);
+        sum += disF(i.second[0], target, dimension);
     }
     return sum;
 }
 
 void KMeans::fit(Matrix &matrix){
 
-    this->selectKPointsByRandom(matrix, this->K);
+    selectKPointsByRandom(matrix, K);
 
     double diff;
     do{
@@ -80,31 +85,32 @@ void KMeans::fit(Matrix &matrix){
         diff = updateKPoints();
     }while(diff>1);
 
-    this->labels.clear();
-    this->inertia = -1;
+    labels.clear();
+    inertia = -1;
 
     return;
 }
 
 vector<size_t> KMeans::getLabels(Matrix &matrix){
 
-    if(this->labels.size() == 0){
-        map<intptr_t, size_t>* t = matrix.getIdMap();
-        for(auto i : this->kPoints){
+    if(labels.size() == 0){
+        labels = vector<size_t>(matrix.m.size());
+        map<intptr_t, size_t>& t = matrix.getIdMap();
+        for(auto i : kPoints){
             for(auto j : i.second){
-                size_t index = (*t)[*j];
-                this->labels[index] = i.first;
+                size_t index = t[(intptr_t) j];
+                labels[index] = i.first;
             }
         }
-        return this->labels;
+        return labels;
     }else{
-        return this->labels;
+        return labels;
     }
 }
 
 double KMeans::getInertia(){
-    if(this->inertia<0){
-        this->inertia = totalErrFunc(this->kPoints);
+    if(inertia<0){
+        inertia = totalErrFunc(kPoints);
     }
-    return this->inertia;
+    return inertia;
 }

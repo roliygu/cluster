@@ -10,13 +10,19 @@ int main() {
 
     Matrix data = getData1();
 
-    KMeans* p = new KMeans(10, 3);
+    //data.print();
 
-    Cluster c = (*p);
+    Cluster* p = new KMeans(10, 3);
 
-    c.fit(data);
+    p->fit(data);
 
-    cout<<c.getInertia()<<endl;
+    cout<<p->getInertia()<<endl;
+
+    vector<size_t> label = p->getLabels(data);
+
+    for(auto i: label){
+        cout<<i<<", ";
+    }
 
     return 0;
 }

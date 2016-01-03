@@ -60,3 +60,5 @@ namespace Time{
         return (double)(current-tmp)/CLOCKS_PER_SEC;
     }
 }
+
+
