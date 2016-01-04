@@ -133,22 +133,22 @@ namespace Statistics{
      * 得到标准差最大的列index
      */
     template<class T>
-    size_t getMaxSDCol(vector<T*> &data, int d){
-        size_t max_c;
+    size_t getMaxSDCol(vector<T*> &data, size_t d){
+        size_t maxSDC;
         double sd;
         for(size_t i=0;i!=d;i++){
             if(i==0){
-                max_c = 0;
+                maxSDC = 0;
                 sd = Statistics::sdCol(data, 0);
             }else{
                 double t_sd = Statistics::sdCol(data, i);
                 if(t_sd>sd){
-                    max_c = i;
-                    sd = max_c;
+                    maxSDC = i;
+                    sd = maxSDC;
                 }
             }
         }
-        return max_c;
+        return maxSDC;
     }
 }
 
@@ -180,7 +180,18 @@ namespace DataMining{
     * 计算这堆点的质心
     */
     template <class T>
-    void calBarycenter(vector<T*> &points, double* res, size_t dim){
+    void calBarycenter(vector<T*> points, double* res, size_t dim){
+
+        if(points.empty()){
+            return;
+        }
+
+        if(points.size()==1){
+            for(size_t i=0;i!=dim;i++){
+                res[i] = points[0][i];
+            }
+            return;
+        }
 
         for(size_t i=0;i!=dim;i++){
             res[i] = points[0][i];

@@ -27,15 +27,15 @@ void HeaderItem::setData(size_t id, string value, size_t group){
 void Matrix::print(){
     cout<<"{"<<endl;
     cout<<"y:"<<endl;
-    for(int i=0;i!=this->y.size();i++){
+    for(int i=0;i!=y.size();i++){
         cout<<"    ";
-        this->y[i].print();
+        y[i].print();
     }
     cout<<"m:"<<endl;
-    for(int i=0;i!=this->D;i++){
+    for(int i=0;i!=y.size();i++){
         cout<<"    (";
-        for(int j=0;j!=this->y.size();j++){
-            cout<<this->m[i][j]<<", ";
+        for(int j=0;j!=D;j++){
+            cout<<m[i][j]<<", ";
         }
         cout<<")"<<endl;
     }
