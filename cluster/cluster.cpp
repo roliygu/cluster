@@ -4,7 +4,8 @@ double Cluster::errFunc(vector<double*> points, double *center){
     double res = 0;
     if(points.size()>0){
         for(size_t j=0;j!=points.size();j++){
-            res += disF(center, points[j], dimension);
+            double dis = disF(center, points[j], dimension);
+            res += dis*dis;
         }
     }
     return res;

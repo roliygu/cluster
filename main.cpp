@@ -6,29 +6,31 @@
 
 using namespace std;
 
-void print(map<size_t, vector<double*>> m){
-    for(auto &i : m){
-        cout<<i.first<<endl;
-        for(auto j : i.second){
-            cout<<j[0]<<", "<<j[1]<<endl;
-        }
-    }
-}
-
-void printt(map<size_t, double*> barycenter){
-    cout<<"100"<<endl;
-    for(auto i : barycenter){
-        cout<<i.second[0]<<", "<<i.second[1]<<endl;
-    }
-}
+//void print(map<size_t, vector<double*>> m){
+//    for(auto &i : m){
+//        cout<<i.first<<endl;
+//        for(auto j : i.second){
+//            cout<<j[0]<<", "<<j[1]<<endl;
+//        }
+//    }
+//}
+//
+//void printt(map<size_t, double*> barycenter){
+//    cout<<"100"<<endl;
+//    for(auto i : barycenter){
+//        cout<<i.second[0]<<", "<<i.second[1]<<endl;
+//    }
+//}
 
 int main() {
 
     Matrix data = getData1();
 
+    data.print();
+
     size_t width = 2;
 
-    size_t k = 10;
+    size_t k = 3;
 
     Time::passed();
 
@@ -40,9 +42,9 @@ int main() {
 
     printt(p->barycenter);
 
-    cout<<Time::passed()<<endl;
+    cout<<"costTime: "<<Time::passed()<<endl;
 
-    cout<<p->getInertia()<<endl;
+    cout<<"totalError: "<<p->getInertia()<<endl;
 
     vector<size_t> labels = p->getLabels(data);
     for(auto i : labels){
@@ -50,22 +52,24 @@ int main() {
     }
     cout<<endl;
 
-//    Time::passed();
-//
-//    Cluster* q = new KMeans(width, k);
-//
-//    q->fit(data);
-//
-//    print(q->kPoints);
-//
-//    cout<<Time::passed()<<endl;
-//
-//    cout<<q->getInertia()<<endl;
-//
-//    vector<size_t> labels = q->getLabels(data);
-//    for(auto i : labels){
-//        cout<<i<<" ";
-//    }
+    Time::passed();
+
+    Cluster* q = new KMeans(width, k);
+
+    q->fit(data);
+
+    print(q->kPoints);
+
+    printt(q->barycenter);
+
+    cout<<"costTime: "<<Time::passed()<<endl;
+
+    cout<<"totalError: "<<q->getInertia()<<endl;
+
+    vector<size_t> labels = q->getLabels(data);
+    for(auto i : labels){
+        cout<<i<<" ";
+    }
 
     return 0;
 }

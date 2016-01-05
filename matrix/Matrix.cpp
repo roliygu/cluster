@@ -25,21 +25,21 @@ void HeaderItem::setData(size_t id, string value, size_t group){
 
 
 void Matrix::print(){
-    cout<<"{"<<endl;
-    cout<<"y:"<<endl;
+//    cout<<"{"<<endl;
+//    cout<<"y:"<<endl;
+//    for(int i=0;i!=y.size();i++){
+//        cout<<"    ";
+//        y[i].print();
+//    }
+//    cout<<"m:"<<endl;
     for(int i=0;i!=y.size();i++){
-        cout<<"    ";
-        y[i].print();
-    }
-    cout<<"m:"<<endl;
-    for(int i=0;i!=y.size();i++){
-        cout<<"    (";
+        cout<<"    [";
         for(int j=0;j!=D;j++){
             cout<<m[i][j]<<", ";
         }
-        cout<<")"<<endl;
+        cout<<"],"<<endl;
     }
-    cout<<"}"<<endl;
+//    cout<<"}"<<endl;
 }
 
 map<intptr_t, size_t> & Matrix::getIdMap(){

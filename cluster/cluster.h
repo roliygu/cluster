@@ -22,19 +22,15 @@ public:
 
     double getInertia();
 
-    map<size_t, vector<double*>> kPoints;
-
-    map<size_t, double*> barycenter;
-
 protected:
 
     /***********Data members***********/
 
     size_t dimension;
 
+    map<size_t, vector<double*>> kPoints;
 
-
-
+    map<size_t, double*> barycenter;
 
     vector<size_t> labels;
 

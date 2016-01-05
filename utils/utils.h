@@ -202,7 +202,7 @@ namespace DataMining{
             }
         }
         for(size_t i=0;i!=dim;i++){
-            res[i] /= points.size()-1;
+            res[i] /= points.size();
         }
 
         return;

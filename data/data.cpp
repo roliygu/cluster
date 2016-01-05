@@ -5,7 +5,7 @@ using std::bad_alloc;
 
 Matrix getData1(){
 
-    int size = 100;
+    int size = 10;
     int width = 2;
     
     Matrix data1;
